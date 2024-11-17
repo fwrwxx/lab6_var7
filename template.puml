@@ -1,0 +1,28 @@
+@startuml
+object button1 {
+    name: ButtonA
+}
+
+object button2 {
+    name: ButtonB
+}
+
+object panel {
+    name: Panel1
+}
+
+object visitorA: CountElementsVisitor {
+    elementTypeToCount: ButtonA
+    count: 0
+}
+
+object visitorB: CountElementsVisitor {
+    elementTypeToCount: ButtonB
+    count: 0
+}
+
+button1 --> visitorA : accept(visitorA)
+button2 --> visitorB : accept(visitorB)
+panel --> button1 : contains
+panel --> button2 : contains
+@enduml
