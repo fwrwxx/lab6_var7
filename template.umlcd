@@ -1,0 +1,49 @@
+@startuml
+package lab_6_var_7 {
+    interface UIElement {
+        +accept(visitor: Visitor)
+    }
+
+    interface Visitor {
+        +visitPanel(panel: Panel)
+        +visitButton(button: Button)
+    }
+
+    class Button {
+        -name: String
+        +Button(name: String)
+        +getName(): String
+        +accept(visitor: Visitor)
+    }
+
+    class Panel {
+        -name: String
+        -elements: List<UIElement>
+        +Panel(name: String)
+        +addElement(element: UIElement)
+        +getElements(): List<UIElement>
+        +accept(visitor: Visitor)
+    }
+
+    class CountElementsVisitor {
+        -elementTypeToCount: String
+        -count: int
+        +CountElementsVisitor(elementTypeToCount: String)
+        +getCount(): int
+        +visitPanel(panel: Panel)
+        +visitButton(button: Button)
+    }
+
+    class ObjectStructure {
+        -elements: List<UIElement>
+        +addElement(element: UIElement)
+        +accept(visitor: Visitor)
+    }
+
+    UIElement <|.. Button
+    UIElement <|.. Panel
+    Visitor <|.. CountElementsVisitor
+    Panel --> "0..*" UIElement : contains
+    ObjectStructure --> "0..*" UIElement : manages
+}
+@enduml
